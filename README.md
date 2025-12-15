@@ -52,7 +52,7 @@ Connect-AzAccount
 **Example**:
 ```powershell
 # Load the function
-. .\DeploymentCredential\Deploy-EntraIDTenantApplicationRegistration.ps1
+. .\\Deploy-EntraIDTenantApplicationRegistration.ps1
 
 # Deploy with default settings
 Deploy-EntraIDTenantApplicationRegistration
@@ -74,7 +74,7 @@ Deploy-EntraIDTenantApplicationRegistration -DisplayName "My Organization Servic
 **Example**:
 ```powershell
 # Load the function
-. .\DeploymentCredential\New-EntraIDApplicationRegistration.ps1
+. .\\New-EntraIDApplicationRegistration.ps1
 
 # Create a single-tenant application
 $app = New-EntraIDApplicationRegistration -DisplayName "Azure Management Service"
@@ -99,7 +99,7 @@ $app = New-EntraIDApplicationRegistration -DisplayName "My Organization Service"
 **Example**:
 ```powershell
 # Load the function
-. .\DeploymentCredential\New-EntraIDApplicationRegistrationSecret.ps1
+. .\\New-EntraIDApplicationRegistrationSecret.ps1
 
 # Create a secret for an application
 New-EntraIDApplicationRegistrationSecret -AppId "your-application-id"
@@ -119,7 +119,7 @@ New-EntraIDApplicationRegistrationSecret -AppId "your-application-id"
 **Example**:
 ```powershell
 # Load the function
-. .\DeploymentCredential\New-EntraIDApplicationRegistrationPermissions.ps1
+. .\\New-EntraIDApplicationRegistrationPermissions.ps1
 
 # Assign User.Read permission
 New-EntraIDApplicationRegistrationPermissions -ObjectId "your-object-id"
@@ -140,7 +140,7 @@ New-EntraIDApplicationRegistrationPermissions -ObjectId "your-object-id" -GraphP
 **Example**:
 ```powershell
 # Load the function
-. .\DeploymentCredential\New-EntraIDApplicationRegistrationRootPermissions.ps1
+. .\\New-EntraIDApplicationRegistrationRootPermissions.ps1
 
 # Assign Owner role at tenant root
 New-EntraIDApplicationRegistrationRootPermissions -AppId "your-application-id"
@@ -162,7 +162,7 @@ New-EntraIDApplicationRegistrationRootPermissions -AppId "your-application-id"
 **Example**:
 ```powershell
 # Load the function
-. .\DeploymentCredential\Get-EntraIDApplicationRegistrationSecrets.ps1
+. .\\Get-EntraIDApplicationRegistrationSecrets.ps1
 
 # Check and renew secrets
 Get-EntraIDApplicationRegistrationSecrets -DisplayName "Azure Management Service"
@@ -190,7 +190,7 @@ Get-EntraIDApplicationRegistrationSecrets -DisplayName "Azure Management Service
 **Example**:
 ```powershell
 # Load the function
-. .\DeploymentCredential\Test-EntraIDTenantAccess.ps1
+. .\\Test-EntraIDTenantAccess.ps1
 
 # Test by display name
 $results = Test-EntraIDTenantAccess -DisplayName "Azure Management Service"
@@ -213,7 +213,7 @@ To deploy a fully configured application registration:
 Connect-AzAccount
 
 # 2. Load and run the deployment function
-. .\DeploymentCredential\Deploy-EntraIDTenantApplicationRegistration.ps1
+. .\\Deploy-EntraIDTenantApplicationRegistration.ps1
 Deploy-EntraIDTenantApplicationRegistration -DisplayName "My Organization Service"
 
 # 3. The function will output:
@@ -227,23 +227,23 @@ Deploy-EntraIDTenantApplicationRegistration -DisplayName "My Organization Servic
 
 ```powershell
 # 1. Create the application registration
-. .\DeploymentCredential\New-EntraIDApplicationRegistration.ps1
+. .\\New-EntraIDApplicationRegistration.ps1
 $app = New-EntraIDApplicationRegistration -DisplayName "My Organization Service"
 
 # 2. Create a secret
-. .\DeploymentCredential\New-EntraIDApplicationRegistrationSecret.ps1
+. .\\New-EntraIDApplicationRegistrationSecret.ps1
 New-EntraIDApplicationRegistrationSecret -AppId $app.AppId
 
 # 3. Assign Graph API permissions
-. .\DeploymentCredential\New-EntraIDApplicationRegistrationPermissions.ps1
+. .\\New-EntraIDApplicationRegistrationPermissions.ps1
 New-EntraIDApplicationRegistrationPermissions -ObjectId $app.Id
 
 # 4. Assign root-level Owner permissions
-. .\DeploymentCredential\New-EntraIDApplicationRegistrationRootPermissions.ps1
+. .\\New-EntraIDApplicationRegistrationRootPermissions.ps1
 New-EntraIDApplicationRegistrationRootPermissions -AppId $app.AppId
 
 # 5. Verify the configuration
-. .\DeploymentCredential\Test-EntraIDTenantAccess.ps1
+. .\\Test-EntraIDTenantAccess.ps1
 Test-EntraIDTenantAccess -DisplayName "My Organization Service"
 ```
 
@@ -259,7 +259,7 @@ Test-EntraIDTenantAccess -DisplayName "My Organization Service"
 
 ```powershell
 # Automated rotation for expiring secrets
-. .\DeploymentCredential\Get-EntraIDApplicationRegistrationSecrets.ps1
+. .\\Get-EntraIDApplicationRegistrationSecrets.ps1
 Get-EntraIDApplicationRegistrationSecrets -DisplayName "Azure Management Service"
 ```
 
