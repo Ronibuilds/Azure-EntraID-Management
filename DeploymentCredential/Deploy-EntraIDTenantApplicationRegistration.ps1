@@ -1,15 +1,15 @@
 <#
 .SYNOPSIS
-Deploys an ITaaS Tenant Application Registration in Entra ID.
+Deploys an Entra ID Application Registration in Entra ID.
 
 .DESCRIPTION
 This function creates an application registration in Entra ID with specified properties,
-assigns necessary permissions, and creates a secret for the application. It is designed
-to setup an application registration for Telindus CMaaS Service with a single tenant type,
-no platforms, User.Read permission, and Cloud Application Administrator role.
+assigns necessary permissions, and creates a secret for the application. It deploys
+an Entra ID Application Registration with a single tenant type, no platforms, User.Read
+permission, and Cloud Application Administrator role.
 
 .PARAMETER DisplayName
-The display name for the application registration. Default is "Telindus CMaaS Service".
+The display name for the application registration. Default is "Azure Management Service".
 
 .PARAMETER TenantType
 The tenant type for the application registration. Default is "AzureADMyOrg".
@@ -21,18 +21,18 @@ The Graph permission to assign to the application. Default is User.Read permissi
 The Graph API ID. Default is the Microsoft Graph API ID.
 
 .EXAMPLE
-Deploy-ITaaSTenantApplicationRegistration
+Deploy-EntraIDTenantApplicationRegistration
 
 Creates an application registration with default parameters.
 
 .NOTES
 Author: Roni Alarashye
 #>
-function Deploy-ITaaSTenantApplicationRegistration {
+function Deploy-EntraIDTenantApplicationRegistration {
     [CmdletBinding()]
     param (
         [Parameter(Mandatory = $false)]
-        [string]$DisplayName = "Telindus CMaaS Service",
+        [string]$DisplayName = "Azure Management Service",
         [ValidateSet("AzureADMyOrg", "AzureADMultipleOrgs", "AzureADandPersonalMicrosoftAccount")]
         [Parameter(Mandatory = $false)]
         [string]$TenantType = "AzureADMyOrg",
@@ -43,13 +43,13 @@ function Deploy-ITaaSTenantApplicationRegistration {
     )
 
     try {
-        $AppRegistration = New-ITaaSApplicationRegistration -DisplayName $DisplayName -TenantType $TenantType
+        $AppRegistration = New-EntraIDApplicationRegistration -DisplayName $DisplayName -TenantType $TenantType
 
         # Invokes the rest of the functions to apply secrets and permissions
-        New-ITaaSApplicationRegistrationSecret -AppId $AppRegistration.AppId
-        New-ITaaSApplicationRegistrationPermissions -ObjectId $AppRegistration.Id -GraphApiId $GraphApiId -GraphPermission $GraphPermission
-        Get-ITaaSApplicationRegistrationSecrets -DisplayName $DisplayName
-        New-ITaaSApplicationRegistrationRootPermissions -AppId $AppRegistration.AppId
+        New-EntraIDApplicationRegistrationSecret -AppId $AppRegistration.AppId
+        New-EntraIDApplicationRegistrationPermissions -ObjectId $AppRegistration.Id -GraphApiId $GraphApiId -GraphPermission $GraphPermission
+        Get-EntraIDApplicationRegistrationSecrets -DisplayName $DisplayName
+        New-EntraIDApplicationRegistrationRootPermissions -AppId $AppRegistration.AppId
 
         Write-Verbose "Deployment completed successfully."
     }

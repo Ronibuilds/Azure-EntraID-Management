@@ -1,9 +1,9 @@
-function Test-ITaaSTenantAccess {
+function Test-EntraIDTenantAccess {
   <#
   .SYNOPSIS
   Tests for tenant access by checking application registration, service principal existence, owner permissions, Graph API permissions, secret expiry, and hub subscription access.
   .DESCRIPTION
-  The Test-TenantAccess function checks an Entra ID application's registration status, verifies the existence of its service principal, and assesses specific permissions and configurations. It supports checking by either the display name or the application ID of the Entra ID application. The function also evaluates the application's Graph API permissions, owner permissions on the root management group, and the expiry of its secrets.
+  The Test-EntraIDTenantAccess function checks an Entra ID application's registration status, verifies the existence of its service principal, and assesses specific permissions and configurations. It supports checking by either the display name or the application ID of the Entra ID application. The function also evaluates the application's Graph API permissions, owner permissions on the root management group, and the expiry of its secrets.
   .PARAMETER DisplayName
   Specifies the display name of the Entra ID application to check. This parameter is mandatory when using the ByDisplayNameSet parameter set.
   .PARAMETER ApplicationId
@@ -11,15 +11,15 @@ function Test-ITaaSTenantAccess {
   .PARAMETER ExpiresIn
   Specifies the threshold in days to check for expiring secrets. Defaults to 30 days.
   .EXAMPLE
-  Test-TenantAccess -DisplayName "MyApplication"
-  Checks the application named "MyApplication" for proper configuration and permissions.
+  Test-EntraIDTenantAccess -DisplayName "Azure Management Service"
+  Checks the application named "Azure Management Service" for proper configuration and permissions.
   .EXAMPLE
-  Test-TenantAccess -ApplicationId "e2a0824f-4a16-426a-9bb8-45c878fea52c" -ExpiresIn 60
+  Test-EntraIDTenantAccess -ApplicationId "e2a0824f-4a16-426a-9bb8-45c878fea52c" -ExpiresIn 60
   Checks the application with the specified ID for proper configuration and permissions, including secrets expiring within 60 days.
   #>
   # To do Cloud App Admin Assignment
   # To do look into checking for API permissions granted admin consent
-  # To do add elseif statement in the case NO secrets exist and produce a warning (Test-ITaaSApplicationRegistrationSecret would have to be modified accordingly)
+  # To do add elseif statement in the case NO secrets exist and produce a warning (Test-EntraIDApplicationRegistrationSecret would have to be modified accordingly)
   [CmdletBinding(DefaultParameterSetName = 'ByDisplayNameSet')]
   param (
     [Parameter(Mandatory = $true, ParameterSetName = 'ByDisplayNameSet')]
@@ -86,7 +86,7 @@ function Test-ITaaSTenantAccess {
     }
   }
   
-  $SecretExpiryCheck = Test-ITaaSApplicationRegistrationSecret -ApplicationId $Application.AppId -ExpiresIn $ExpiresIn
+  $SecretExpiryCheck = Test-EntraIDApplicationRegistrationSecret -ApplicationId $Application.AppId -ExpiresIn $ExpiresIn
   if ($SecretExpiryCheck) {
     $Results['Secret Expiring'] = $true
     Write-Verbose "At least one secret is expiring within $ExpiresIn days."
@@ -96,7 +96,7 @@ function Test-ITaaSTenantAccess {
     Write-Verbose "No secrets are expiring within $ExpiresIn days."
     Write-Warning "No secrets existing could also be the case, check manually!"
   }
-  $HubSubscriptionCheck = Get-AzSubscription -SubscriptionId (Get-ITaaSEnvironmentOptions).HubSubscriptionId
+  $HubSubscriptionCheck = Get-AzSubscription -SubscriptionId (Get-EntraIDEnvironmentOptions).HubSubscriptionId
   if ($HubSubscriptionCheck) {
     $Results['Subscription Hub Found'] = $true
     Write-Verbose "Subscription hub found."

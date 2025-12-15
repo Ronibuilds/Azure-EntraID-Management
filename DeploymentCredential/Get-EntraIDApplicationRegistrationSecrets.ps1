@@ -11,14 +11,14 @@ It creates a new secret for applications with expiring secrets and skips those w
 The display name of the application registration to check secrets for. This parameter is mandatory.
 
 .EXAMPLE
-Get-ITaaSApplicationRegistrationSecrets -DisplayName "Telindus CMaaS Service"
+Get-EntraIDApplicationRegistrationSecrets -DisplayName "Azure Management Service"
 
-Checks and renews secrets for the "Telindus CMaaS Service" application registration.
+Checks and renews secrets for the "Azure Management Service" application registration.
 
 .NOTES
 Author: Roni Alarashye
 #>
-function Get-ITaaSApplicationRegistrationSecrets {
+function Get-EntraIDApplicationRegistrationSecrets {
   [CmdletBinding()]
   param (
     [Parameter(Mandatory = $true)]
@@ -33,7 +33,7 @@ function Get-ITaaSApplicationRegistrationSecrets {
 
       if ($expiringCredentials.Count -gt 0) {
         Write-Host "App Registration ID: $($app.AppId), Name: $($app.DisplayName), has secret(s) expiring within 30 days. A new secret will be created."
-        New-ITaaSApplicationRegistrationSecret
+        New-EntraIDApplicationRegistrationSecret
       }
     }
   }

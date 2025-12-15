@@ -9,14 +9,14 @@ This function assigns the 'Owner' role at the tenant root level to the service p
 The Application ID of the Entra ID application registration for which to assign the 'Owner' role at the tenant root level.
 
 .EXAMPLE
-New-ITaaSApplicationRegistrationRootPermissions -AppId "your-application-id"
+New-EntraIDApplicationRegistrationRootPermissions -AppId "your-application-id"
 
 Assigns the 'Owner' role at the tenant root level to the service principal of the specified application.
 
 .NOTES
 Author: Roni Alarashye
 #>
-function New-ITaaSApplicationRegistrationRootPermissions {
+function New-EntraIDApplicationRegistrationRootPermissions {
   [CmdletBinding()]
   param (
     [Parameter(Mandatory = $false)]

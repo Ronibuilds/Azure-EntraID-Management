@@ -15,14 +15,14 @@ The Microsoft Graph permission to assign. The default value is the ID for User.R
 The Microsoft Graph API ID. The default value is the fixed API ID for Microsoft Graph.
 
 .EXAMPLE
-New-ITaaSApplicationRegistrationPermissions -AppRegObjectId "example-object-id" -GraphPermission "e1fe6dd8-ba31-4d61-89e7-88639da4683d"
+New-EntraIDApplicationRegistrationPermissions -AppRegObjectId "example-object-id" -GraphPermission "e1fe6dd8-ba31-4d61-89e7-88639da4683d"
 
 Assigns the User.Read permission to the specified application registration.
 
 .NOTES
 Author: Roni Alarashye
 #>
-function New-ITaaSApplicationRegistrationPermissions {
+function New-EntraIDApplicationRegistrationPermissions {
   [CmdletBinding()]
   param (
     [string]$ObjectId,

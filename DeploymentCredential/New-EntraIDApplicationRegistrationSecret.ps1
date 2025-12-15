@@ -10,14 +10,14 @@ It assigns a unique identifier to the secret and sets the expiration date to 6 m
 The Application ID of the Entra ID application for which to create a new secret.
 
 .EXAMPLE
-New-ITaaSApplicationRegistrationSecret -AppId "your-application-id"
+New-EntraIDApplicationRegistrationSecret -AppId "your-application-id"
 
 Creates a new secret for the specified Entra ID application.
 
 .NOTES
 Author: Roni Alarashye
 #>
-function New-ITaaSApplicationRegistrationSecret {
+function New-EntraIDApplicationRegistrationSecret {
   [CmdletBinding()]
   param (
     [Parameter(Mandatory = $false)]
@@ -27,7 +27,7 @@ function New-ITaaSApplicationRegistrationSecret {
   try {
     $StartDate = [System.DateTime]::Now
     $EndDate = $StartDate.AddMonths(6)
-    $CustomKeyId = "CMaaS-$($StartDate.Date.ToString("yyyyMMdd"))"
+    $CustomKeyId = "AppSecret-$($StartDate.Date.ToString("yyyyMMdd"))"
     $CustomKeyIdBytes = [System.Text.Encoding]::Unicode.GetBytes($CustomKeyId)
     $CustomKeyIdBase64 = [Convert]::ToBase64String($CustomKeyIdBytes)
 
