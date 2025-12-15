@@ -5,7 +5,7 @@ Assigns Microsoft Graph permissions to an Entra ID application registration.
 .DESCRIPTION
 This function assigns the specified Microsoft Graph permission to the given Entra ID application registration.
 
-.PARAMETER AppRegObjectId
+.PARAMETER ObjectId
 The Object ID of the Entra ID application registration to which permissions will be assigned.
 
 .PARAMETER GraphPermission
@@ -40,5 +40,3 @@ function New-EntraIDApplicationRegistrationPermissions {
     Write-Error "Failed to assign Graph API permission to application registration: $_"
   }
 }
-
-# Get basic overview of azure monthly spent cost in code in EUROS, no function

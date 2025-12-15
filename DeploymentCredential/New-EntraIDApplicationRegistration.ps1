@@ -47,7 +47,7 @@ function New-EntraIDApplicationRegistration {
     Write-Host "Preparing to create service principal for app registration..."
     $servicePrincipal = New-AzADServicePrincipal -ApplicationId $appRegistration.AppId -ErrorAction Stop
 
-    return $AppRegistration
+    return $appRegistration
   }
   catch {
     Write-Error "An error occurred while creating the Entra ID application registration: $_"
